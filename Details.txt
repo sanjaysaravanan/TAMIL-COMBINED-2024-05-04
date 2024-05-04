@@ -1,0 +1,339 @@
+
+Database:
+  A database is an organized collection of structured/unstructured information, or data, 
+  typically stored electronically in a computer system. A database is usually 
+  controlled by a database management system (DBMS).
+
+  SQL --> Structured Query Language
+    Language used to structurallly design the database, & query the database which responds with data
+
+  Eg: Design a DB for Facebook sort of application,
+
+    Classify the entities or objects in the database
+
+    Data invovled in facebook, 
+      what are the groups of data that is being used in Facebook,
+        1. Users ---> id, Profile Picture, Name, DOB, BIO, email
+        2. Friends ---> User Id, email, friend_since, frind_id
+        3. Posts ---> post_id, vidoe/image, likes (number), comments( this is also group )
+        4. Comments ---> user_id, datetime, string, post_id
+        5. Ads --> name, image, link, genre of the ads
+    Schools:
+      Chat Application:
+        1. Users -> user_id, name, profile_pic, phone_number
+        2. contacts -> name, profile_pic, phone_number
+        3. chats -> description, datetime, sender, receiver, sender_time, receiver_time
+  
+DBMS:
+  Database Management System is a software application/service used to 
+  manage the operations( CRUD ) in the DB.
+
+MySql:
+  MySQL is a Structural database management system.
+
+MySql Engine:
+  A storage engine is a software module that a database management system uses 
+  to do create, read, update data in a database.
+
+basics:
+  datatypes in sql
+    basic types 
+      varchar(size) - string, 
+      INT(size), 
+      FLOAT(size, d), 
+      DATE
+      BLOB(size) / TEXT (CDN URL)- images/vidoes
+        Blob is usually not suggested to used because of the uncertain size and type of the media which can load the DB size.
+        Preferred way is CDN ( Content Delivery Network ) which can serve the images or videos over internet
+  
+    several more refer - https://www.w3schools.com/sql/sql_datatypes.asp
+
+  Table:
+    represents the collections of single object
+      eg:
+       books is table which will contain multiple books:
+
+        id Name          Author     PublisheDate  Likes
+        1  Harry Potter   JK          2023         1000
+        2  Wings Of Fire  APJ         2021         699
+
+        todos 
+
+        id title         isCompleted      DueDate
+        1  Dance         false            2023-11-28
+        2  Learn Python  false            2024-11-11
+
+  Structuring of Data --> Design the Relationship between objects or entities.
+
+    1. Primary Key ( unique attibute for every single object of a particular group )
+      id in the above books table
+    
+    2. Foreign Key ( primary key of an object in another table )
+
+
+  Relational DB:
+
+    Data / Objects are related together.
+
+  Entity Relationship between tables/objects,
+    one-to-one ( one student ---> one course )
+    one-to-many (course ---> students, post ---> comments)
+    many-to-one (students ---> course)
+    many-to-many
+
+    Entity relationship diagram desinging should be practice with pen/paper 
+    Once finlaized go for any online tool
+
+    https://www.lucidchart.com/pages/er-diagrams
+  
+  Prime Video Objects:
+
+    Movie --> name, storyline, genre, year, directors, producers, stars
+
+    Stars: Primary Key id
+      id    name      gender   noOfMovies
+      1     SRK       Male      100
+      2     Ranveer   Male      30
+      3     Deepika   Female    100
+      4     Vijay     Male      50
+
+    genre table primary key id
+      id, name,              description
+      1   suspense           Sudden Twist in the plot
+      2   Drama              Melodramatic in the plot
+      3.  Horror             Horror
+      4.  Romance            Love Film
+    
+    Directors: primary key id
+
+      id   name   noOfMovies
+      1    Atlee  5
+      2    Lokesh 5
+      3    Nelson 4
+
+    Movies: primary key id, foreign_key driector_id, 
+
+      id    name     driector_id 
+      1     Jawan    1            
+      2     Leo
+
+    Casting: ( Linking Table for Movie & Stars )
+      id ( Primary key)
+      movie_id ( Foreign_key --> primary key of some other table )
+      star_id
+
+      id    movie-id    star-id
+      1       1          1
+      2       1          3
+    
+    Movie-Genres ( Linking table or the relating table )
+      id movie-id genre-id
+      1    1        1
+      2    1        2
+      3    1        4 
+
+  Eg:
+    School/College maintaining students/teachers data in structured manner 
+    like below,
+      Student:
+        student_id ( int ) - Primary key
+        student_name (  )
+        student_class/year
+        student_department
+        class_teacher ( Teacher Id - Foreign_key)
+      Teacher:
+        teacher_id ( Primary key )
+        teacher_name
+        teacher_subject
+      Subjects:
+        name
+        id (primary key)
+        teacher ( teacher_id ) ( FOREIGN KEY )
+      Marks:
+        subject_id ( FOREIGN KEY )
+        mark
+        mark_id (primary key)
+        student_id ( FOREIGN KEY )
+
+      Relationship between the teacher and student,
+        teacher ---> students (one to many)
+      
+      Subject & Teacher,
+        teacher ---> subject
+        one - to - one
+      
+      Marks and Subjects:
+        Marks --> subjects, students (many to many)
+
+        Linking Table - Evaluation as Table 
+
+        Refer: https://d2slcw3kip6qmk.cloudfront.net/marketing/pages/chart/seo/ERD/discovery/erd-school.svg
+
+    Train Ticket Booking,
+      Train:
+        train_number
+        train_name
+        train_status
+      Customers:
+        cust_id
+        cust_name
+        cust_email
+        cust_phone
+      Bookings: (Tickets)
+        pnr
+        customer_id (foreign_key)
+        seat
+        tain_number (foreign_key)
+        date
+  
+  Exercise Design a DB for Shopping Mart including,
+    Customers, Products, Orders related Cart_id/customer_id (), Cart ( multiple entries of product with same cart_id )
+
+
+SQLBOLT:
+  Website to learn SQL with exercises
+
+create DB
+  https://www.w3schools.com/sql/default.asp
+  syntax: CREATE DATABASE databasename;
+
+  Eg: Create Data base for School Management
+
+  CREATE DATABASE school-mgmt;
+
+list DB;
+
+create table
+
+  rows(inserted, updated, deleted) ( data ), columns(alter) ( specification of the type of data )
+
+  https://www.w3schools.com/sql/sql_create_table.asp
+
+  CREATE TABLE table_name (
+      column1 datatype,
+      column2 datatype,
+      column3 datatype,
+    ....
+  );
+
+  CREATE TABLE Students (
+    StudentId int PRIMARY KEY,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Class int,
+  );
+
+ALTER TABLE:
+  statement is used to add, delete, or modify columns in an existing table.
+  ALTER TABLE table_name
+  ADD column_name datatype;
+
+  ALTER TABLE table_name
+  DROP COLUMN column_name;
+
+  ALTER TABLE table_name
+  RENAME COLUMN old_name to new_name;
+
+  ALTER TABLE table_name
+  MODIFY COLUMN column_name datatype;
+
+
+CRUD --> READ, CREATE, UPDATE, DELETE
+
+READ:
+  select:
+    all data
+      SELECT * FROM movies;
+
+    single column
+      SELECT title FROM movies;
+
+    multiple columns
+      SELECT title, director FROM movies;
+
+  Filtering:
+    where:
+      select movies from year 1995
+      select movies except with ids 1, 5, 8
+      select the movies which contains WALL in titl string
+
+  Sorting:
+    order by:
+      select * from movies order by Title asc/desc;
+    limit:
+      order and limit the enteries
+    offset:
+      where to start the limit count
+
+  distinct:
+    without duplicate
+    list all directors in alphbetical
+
+  aggregate function:
+    max, sum, min, count
+
+  alias:
+    as syntax to convert the column name
+
+  group by:
+    aggregate function by combing row with condition
+    Reference: https://sqlbolt.com/lesson/select_queries_with_aggregates
+
+Task:
+
+  2024-05-04:
+    Complete lessons 1,2,3,4, SQL Review, Lesson 16, 17, 18
+
+    Do Not Submit Today: Because You need to suibmit all the questions ( Screenshot for all the questions )
+
+    So, complete what we discussed and keep it ready, once we disccuss all
+
+    You can complete all the submit the screenshots in Github
+    Eg Link: https://github.com/sanjaysaravanan/task-sqlbolt
+
+Next Session:
+
+CREATE:
+  insert:
+    INSERT INTO tablename
+    (column, another_column, …)
+    VALUES (value_or_expr, another_value_or_expr, …),
+          (value_or_expr_2, another_value_or_expr_2, …),
+          …;
+
+UPDATE:
+  UPDATE mytable
+  SET column = value_or_expr, 
+      other_column = another_value_or_expr, 
+      …
+  WHERE condition;
+
+  change director for a movie
+
+  update movies set Director='John Lasseter' where Title="A Bug's Life";
+
+DELETE:
+  DELETE FROM mytable
+  WHERE condition;
+
+Degin a DB for IMDB
+
+Desing the DB Tables and Realtionships like belwo,
+
+Movies (
+  id INT,
+  title TEXT,
+  ...
+);
+Genre (
+  id INT,
+  movie_id INT,
+  ...
+);
+
+Movie --> Many Genres
+
+Storing image or video:
+  blob --> 
+    https://stackoverflow.com/questions/6472233/can-i-store-images-in-mysql
+  BLOB(size) / TEXT (CDN URL)- images/vidoes
